@@ -2,9 +2,12 @@
 
 namespace Dhii\Functions\FuncTest;
 
+use BadFunctionCallException;
+use Countable;
 use Dhii\Functions\Func;
 use OutOfBoundsException;
 use PHPUnit\Framework\TestCase;
+use ReflectionException;
 use RuntimeException;
 
 /**
@@ -509,5 +512,31 @@ class FuncTest extends TestCase
 
         static::expectOutputString("Hello Mr. Anderson");
         $func("Anderson", "Mr");
+    }
+
+    /**
+     * @since [*next-version*]
+     *
+     * @throws ReflectionException
+     */
+    public function testMethod()
+    {
+        $mock = $this->getMockForAbstractClass(Countable::class);
+        $mock->expects(static::once())->method('count')->willReturn(6);
+
+        $func = Func::method('count');
+
+        static::assertEquals(6, $func($mock));
+    }
+
+    /**
+     * @since [*next-version*]
+     */
+    public function testMethodNoArgs()
+    {
+        $func = Func::method('count');
+
+        $this->expectException(BadFunctionCallException::class);
+        $func();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Dhii\Functions;
 
+use BadFunctionCallException;
 use Exception;
 
 class Func
@@ -294,6 +295,28 @@ class Func
     {
         return function (...$args) use ($fn) {
             echo static::call($fn, $args);
+        };
+    }
+
+    /**
+     * Creates a function that calls a method on the first argument, while passing any remaining arguments.
+     *
+     * @since [*next-version*]
+     *
+     * @param string $method The name of the method to call on the first argument.
+     *
+     * @return callable The created function.
+     */
+    public static function method(string $method) : callable
+    {
+        return function (...$args) use ($method) {
+            if (count($args) === 0) {
+                throw new BadFunctionCallException('At least one argument is required');
+            }
+
+            $object = array_shift($args);
+
+            return static::call([$object, $method], $args);
         };
     }
 
