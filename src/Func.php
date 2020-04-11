@@ -107,7 +107,7 @@ class Func
      * When the resulting merged function is invoked, the given functions are invoked in the given order and are passed
      * the full set of invocation arguments.
      *
-     * No value is returned from the merged function. For returning values, use {@link FuncOld::pipe()}.
+     * No value is returned from the merged function. For returning values, use {@link Func::pipe()}.
      *
      * @since [*next-version*]
      *
@@ -267,11 +267,13 @@ class Func
     }
 
     /**
+     * Captures the output of a function to return it instead.
+     *
      * @since [*next-version*]
      *
-     * @param callable $fn
+     * @param callable $fn The function whose output should be captured.
      *
-     * @return callable
+     * @return callable A function that returns a string containing the original function's output.
      */
     public static function capture(callable $fn) : callable
     {
@@ -285,11 +287,13 @@ class Func
     }
 
     /**
+     * Outputs a function's return value.
+     *
      * @since [*next-version*]
      *
-     * @param callable $fn
+     * @param callable $fn The function whose return value should be outputted.
      *
-     * @return callable
+     * @return callable A function that outputs the original function's return value.
      */
     public static function output(callable $fn) : callable
     {

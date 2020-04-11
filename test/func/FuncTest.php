@@ -345,6 +345,7 @@ class FuncTest extends TestCase
 
     /**
      * Tests different functions with the same arguments to ensure that different functions don't share the same cache.
+     *
      * @since [*next-version*]
      */
     public function testMemoizeDifferentFuncs()
