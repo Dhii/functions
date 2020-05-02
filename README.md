@@ -149,14 +149,16 @@ Catch exceptions using functions.
 use Dhii\Functions\Func;
 
 $thrower = function () {
-    throw new OutOfBoundsException();
+    throw new OutOfBoundsException("Oh no");
 };
 
-$fn = Func::catch($thrower, [OutOfBoundsException::class], function ($exception) {
+$printException = function (Exception $exception) {
     echo $exception->getMessage();
-});
+};
 
-$fn(2, 4, 6); // Returns 4 + 8 + 12 = 24
+$fn = Func::catch($thrower, [OutOfBoundsException::class], $printException);
+
+$fn(); // Prints "Oh no"
 ```
 
 [Dhii]: https://github.com/Dhii/dhii
